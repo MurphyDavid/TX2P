@@ -31,15 +31,19 @@ Getting ORFs
 
 Searching mass spec data.
 
+
+We download a mass spec file for testing.
+
+>wget ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2020/09/PXD020044/H_Luh_ND_3.raw
+>
 >current_folder=$(pwd)
 >
 >mkdir testoutput
 >
 >cd ./testoutput
 
+And run on the mass spec data. 
 
-Now we download a mass spec file for testing.
+>docker run -d -v $current_folder:/current_folder --rm  -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/testoutput -t /currentfolder/mmconfig/MetaMorpheusVignette-selected-examples/Task2-CalibrateTaskconfig.toml /currentfolder/mmconfig/MetaMorpheusVignette-selected-examples/Task4-GPTMDTaskconfig.toml currentfolder/mmconfig/MetaMorpheusVignette-selected-examples/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /currentfolder/H_Luh_ND_3.raw
 
->wget ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2020/09/PXD020044/H_Luh_ND_3.raw
 
-docker run -d -v $current_folder:/current_folder --rm  -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/$1 -t /mydata/MetaMorpheusVignette-selected-examples/Task2-CalibrateTaskconfig.toml /mydata/MetaMorpheusVignette-selected-examples/Task4-GPTMDTaskconfig.toml /mydata/MetaMorpheusVignette-selected-examples/Task5-SearchTaskconfig.toml -d /current_folder.fasta -s H_Luh_ND_3.raw
