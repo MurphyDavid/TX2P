@@ -60,10 +60,11 @@ We download a mass spec file for testing.
 
 And run on the mass spec data. 
 
->docker run -d -v $current_folder:/current_folder --rm  -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/testoutput -t /currentfolder/mmconfig/MetaMorpheusVignette-selected-examples/Task2-CalibrateTaskconfig.toml /currentfolder/mmconfig/MetaMorpheusVignette-selected-examples/Task4-GPTMDTaskconfig.toml currentfolder/mmconfig/MetaMorpheusVignette-selected-examples/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /currentfolder/H_Luh_ND_3.raw
+>docker run -v $current_folder:/current_folder -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /current_folder/H_Luh_ND_3.raw
 
-
-You can add almost any number of additional mass spec files though we suggest keeping it to less than 100GB or so. You can give the docker access to additional folders by adding  more in the format "-v folder:/mountname"
+You can add almost any number of additional mass spec files, it's recommended to include a full dataset to allow good calibration though we suggest keeping it to less than 200GB or so. 
+You can give the docker access to additional folders by adding  more in the format "-v folder:/mountname" 
+The paths to additional raw files needs to be give in terms of the mounted path inside the docker container. 
 
 Supported formats are 
 
