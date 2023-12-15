@@ -1,4 +1,4 @@
-![image](https://github.com/MurphyDavid/TX2P/assets/11276387/b45a00cb-b0e3-444d-8e4a-6a55cb554a52)# TX2P
+# TX2P
 TX2P - Transcript to protein
 
 The purpose of TX2P is to take long read cDNA transcript data, extract putative open reading frames and to then allow easy searching for those predicted proteins in mass spec datasets.
