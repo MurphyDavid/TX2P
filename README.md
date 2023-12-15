@@ -33,8 +33,9 @@ Download the docker images.
 >
 >cd TX2P
 
-"metamorpheusdocker" is a copy of the one availible from https://smith-chem-wisc.github.io/MetaMorpheus/ or  https://github.com/smith-chem-wisc/MetaMorpheus
-If desired you should be able to use an updated version from those sources. Please cite https://doi.org/10.1021/acs.jproteome.7b00873
+"metamorpheusdocker" is a copy of metamorpheus as availible from https://smith-chem-wisc.github.io/MetaMorpheus/ or  https://github.com/smith-chem-wisc/MetaMorpheus
+If desired you should be able to use an updated version from those sources. 
+Please cite https://doi.org/10.1021/acs.jproteome.7b00873
 
 
 ## Testing:
