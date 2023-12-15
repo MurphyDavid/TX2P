@@ -1,4 +1,4 @@
-# TX2P
+![image](https://github.com/MurphyDavid/TX2P/assets/11276387/b45a00cb-b0e3-444d-8e4a-6a55cb554a52)# TX2P
 TX2P - Transcript to protein
 
 The purpose of TX2P is to take long read cDNA transcript data, extract putative open reading frames and to then allow easy searching for those predicted proteins in mass spec datasets.
@@ -45,20 +45,23 @@ Getting ORFs
 >
 >docker run -v $current_folder:/current_folder  --entrypoint Rscript murphydaviducl/getorf /getcds/getCDSandAAseq.R --gtf /current_folder/test.gtf --transcript /current_folder/test_transcripts.tsv --output /current_folder/output_ORFs.csv
 
-Searching mass spec data.
 
 
-We download a mass spec file for testing.
+#Searching mass spec data.
+
+Fownload a mass spec file for testing.
 
 >wget ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2020/09/PXD020044/H_Luh_ND_3.raw
->
+
+Create an output folder
+
 >current_folder=$(pwd)
 >
 >mkdir testoutput
 >
 >cd ./testoutput
 
-And run on the mass spec data. 
+Run on the example mass spec data. 
 
 >docker run -v $current_folder:/current_folder -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /current_folder/H_Luh_ND_3.raw
 
@@ -74,4 +77,15 @@ Supported formats are
 >
 >.mgf
 
+Using the example files provided, once the tool has run you should now have a folder that looks like this.
+
+![image](https://github.com/MurphyDavid/TX2P/assets/11276387/c899d7b9-80d2-472a-b4bf-a6aae6b6b1ad)
+
+The Task3 folder should look like this
+
+![image](https://github.com/MurphyDavid/TX2P/assets/11276387/c6a4eeab-2faf-42a2-b305-ca64983e2082)
+
+The AllQuantifiedProteinGroups should have one entry like this
+
+![image](https://github.com/MurphyDavid/TX2P/assets/11276387/0717f0ad-189b-4911-bd6d-dc43a82cd755)
 
