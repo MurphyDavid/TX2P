@@ -20,6 +20,9 @@ Before installing TX2P, you need to have Docker installed on your system. Docker
 2. **Start the Docker Service:** Use `sudo systemctl start docker` to start the Docker service.
 3. **Verify Installation:** Check if Docker is installed correctly by typing `docker --version` in the terminal.
 
+### For Windows
+
+The docker's will work on windows but TODO: exact shell commands
 
 ## Getting Started:
 
@@ -90,3 +93,9 @@ The AllQuantifiedProteinGroups should have one entry like this
 
 ![image](https://github.com/MurphyDavid/TX2P/assets/11276387/0717f0ad-189b-4911-bd6d-dc43a82cd755)
 
+### Usage
+
+If you are trying to confirm that a transcript in an organism is producing a protein, it's suggested to include the full known proteome for that organism.
+For humans the relevant fasta file can be downloaded from uniprot: https://www.uniprot.org/help/downloads 
+
+>docker run -v $current_folder:/current_folder -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d [Fasta file for transcripts of interest] /current_folder/contaminants.fasta [Fasta file of known proteins for organism of interest] -s [complete list of mass spec files]
