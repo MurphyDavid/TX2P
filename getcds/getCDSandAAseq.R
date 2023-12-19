@@ -94,18 +94,21 @@ get_sequences <- function(gtf){
   
   # Get sequences
   NT_seq <-
-    
-    # Start by adding nucleotide sequwnces for all exons, including UTRs
-    subset(gtf, type == "exon") %>% 
-    split(., mcols(.)$transcript_id) %>% 
+    subset(gtf, type == "exon") %>%
+    split(., mcols(.)$transcript_id) %>%
     lapply(., function(x) {
-      x %>% 
-        sort() %>% 
-        getSeq(Hsapiens, .) %>% paste(., collapse = "") 
-      
-    }
-    ) %>% utils::stack() %>% 
-    setNames(c("NT_seq", "Transcript")) %>% 
+      if (unique(strand(x)) == "-") {
+        x %>%
+          sort(., decreasing = TRUE) %>%  # Sort in decreasing order
+          getSeq(Hsapiens, .) %>% paste(., collapse = "")
+      } else {
+        x %>%
+          sort(.) %>%  # Sort in increasing order
+          getSeq(Hsapiens, .) %>% paste(., collapse = "")
+      }
+    }) %>%
+    utils::stack() %>%
+    setNames(c("NT_seq", "Transcript")) %>%
     subset(., select=c("Transcript", "NT_seq")) 
   
   # ORF prediction, get ORF sequences and translate to AA sequences. 
