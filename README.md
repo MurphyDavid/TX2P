@@ -1,5 +1,6 @@
-# TX2P
-TX2P - Transcript to protein
+# TX2P - Transcript to protein
+
+!img[RNA_to_protein](./img/RNA_protein.png)
 
 The purpose of TX2P is to take long read cDNA transcript data, extract putative open reading frames and to then allow easy searching for those predicted proteins in mass spec datasets.
 
