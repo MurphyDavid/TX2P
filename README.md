@@ -23,15 +23,15 @@ Before installing `TX2P`, you need to have `Docker` installed on your system. `D
 #### For Linux:
 
 1. **Open a Terminal:** Use your Linux distribution's package manager to install `Docker`. The command varies depending on the distribution:
-   - For Ubuntu/Debian: 
+   **Ubuntu/Debian**: 
    ```
    sudo apt-get install docker-ce docker-ce-cli containerd.io
    ```
-   - For Fedora: 
+   **Fedora**: 
    ```
    sudo dnf -y install docker-ce
    ```
-   - For CentOS: 
+   **CentOS**: 
    ```
    sudo yum install docker-ce docker-ce-cli containerd.io
    ```
@@ -46,15 +46,17 @@ The docker's will work on windows but TODO: exact shell commands
 
 Download the docker images.
 
->docker pull murphydaviducl/getorf:latest
->
->docker pull murphydaviducl/metamorpheusdocker:latest
->
->git clone https://github.com/MurphyDavid/TX2P
->
->cd TX2P
+```
+docker pull murphydaviducl/getorf:latest
 
-"metamorpheusdocker" is a copy of metamorpheus as availible from https://smith-chem-wisc.github.io/MetaMorpheus/ or  https://github.com/smith-chem-wisc/MetaMorpheus
+docker pull murphydaviducl/metamorpheusdocker:latest
+
+git clone https://github.com/MurphyDavid/TX2P
+
+cd TX2P
+```
+
+`metamorpheusdocker` is a copy of `MetaMorpheus` as availible from https://smith-chem-wisc.github.io/MetaMorpheus/ or  https://github.com/smith-chem-wisc/MetaMorpheus
 If desired you should be able to use an updated version from those sources. 
 Please cite https://doi.org/10.1021/acs.jproteome.7b00873
 
