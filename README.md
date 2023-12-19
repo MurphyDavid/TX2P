@@ -10,26 +10,35 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-The purpose of TX2P is to take long read cDNA transcript data, extract putative open reading frames and to then allow easy searching for those predicted proteins in mass spec datasets.
+`TX2P` allows for automated integration of mass spectometry data in long-read RNA-sequencing workflow. It does so by predicting open reading frames for each transcripts within an input GTF/GFF file, translates it into peptide sequences and then searches for those predicted proteins in mass spec datasets using `MetaMorpheus`.
 
-Currently this is only set up to work with GRCH38 data.
+Currently `TX2P` is only set up to work with GRCh38.
 
 ## Prerequisites
 
-Before installing TX2P, you need to have Docker installed on your system. Docker is a platform that allows you to create, deploy, and run applications in containers. Follow the instructions below to install Docker if you haven't already:
+Before installing `TX2P`, you need to have `Docker` installed on your system. `Docker` is a platform that allows you to create, deploy, and run applications in containers. Follow the instructions below to install `Docker` if you haven't already:
 
 ### Installing Docker
 
 #### For Linux:
 
-1. **Open a Terminal:** Use your Linux distribution's package manager to install Docker. The command varies depending on the distribution:
-   - For Ubuntu/Debian: `sudo apt-get install docker-ce docker-ce-cli containerd.io`
-   - For Fedora: `sudo dnf -y install docker-ce`
-   - For CentOS: `sudo yum install docker-ce docker-ce-cli containerd.io`
+1. **Open a Terminal:** Use your Linux distribution's package manager to install `Docker`. The command varies depending on the distribution:
+   - For Ubuntu/Debian: 
+   ```
+   sudo apt-get install docker-ce docker-ce-cli containerd.io
+   ```
+   - For Fedora: 
+   ```
+   sudo dnf -y install docker-ce
+   ```
+   - For CentOS: 
+   ```
+   sudo yum install docker-ce docker-ce-cli containerd.io
+   ```
 2. **Start the Docker Service:** Use `sudo systemctl start docker` to start the Docker service.
 3. **Verify Installation:** Check if Docker is installed correctly by typing `docker --version` in the terminal.
 
-### For Windows
+#### For Windows
 
 The docker's will work on windows but TODO: exact shell commands
 
