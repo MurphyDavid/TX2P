@@ -12,7 +12,7 @@
 
 `TX2P` allows for automated integration of mass spectometry data in long-read RNA-sequencing workflow. It does so by predicting open reading frames for each transcripts within an input GTF/GFF file, translates it into peptide sequences and then searches for those predicted proteins in mass spec datasets using `MetaMorpheus`.
 
-Currently `TX2P` is only set up to work with GRCh38.
+*NOTE!* Currently `TX2P` is only set up to work with GRCh38.
 
 ## Prerequisites
 
@@ -63,32 +63,34 @@ Please cite https://doi.org/10.1021/acs.jproteome.7b00873
 
 ## Testing:
 
-Getting ORFs
+### Getting ORFs
 
->current_folder=$(pwd)
->
->docker run -v $current_folder:/current_folder  --entrypoint Rscript murphydaviducl/getorf /getcds/getCDSandAAseq.R --gtf /current_folder/test.gtf --transcript /current_folder/test_transcripts.tsv --output /current_folder/output_ORFs.csv
+```
+current_folder=$(pwd)
 
+docker run -v $current_folder:/current_folder  --entrypoint Rscript murphydaviducl/getorf /getcds/getCDSandAAseq.R --gtf /current_folder/test.gtf --transcript /current_folder/test_transcripts.tsv --output /current_folder/output_ORFs.csv
+```
 
+### Searching mass spec data.
 
-#Searching mass spec data.
+#### Download a mass spec file for testing.
 
-Fownload a mass spec file for testing.
+```
+wget ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2020/09/PXD020044/H_Luh_ND_3.raw
+```
+#### Create an output folder
+```
+current_folder=$(pwd)
 
->wget ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2020/09/PXD020044/H_Luh_ND_3.raw
+mkdir testoutput
 
-Create an output folder
+cd ./testoutput
+```
+#### Run on the example mass spec data. 
 
->current_folder=$(pwd)
->
->mkdir testoutput
->
->cd ./testoutput
-
-Run on the example mass spec data. 
-
->docker run -v $current_folder:/current_folder -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /current_folder/H_Luh_ND_3.raw
-
+```
+docker run -v $current_folder:/current_folder -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /current_folder/H_Luh_ND_3.raw
+```
 You can add almost any number of additional mass spec files, it's recommended to include a full dataset to allow good calibration though we suggest keeping it to less than 200GB or so. 
 You can give the docker access to additional folders by adding  more in the format "-v folder:/mountname" 
 The paths to additional raw files needs to be give in terms of the mounted path inside the docker container. 
