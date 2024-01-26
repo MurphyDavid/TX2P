@@ -26,9 +26,9 @@ Extract the zip file to a folder.
 
 ![image](https://github.com/MurphyDavid/TX2P/assets/11276387/28b9ae07-6a24-40d1-98a2-c3d95990f08c)
 
-
  
 Run CMD
+
 ![image](https://github.com/MurphyDavid/TX2P/assets/11276387/3a2a975c-3dd3-440c-aba7-b27ddae31380)
 ![image](https://github.com/MurphyDavid/TX2P/assets/11276387/a483f460-9ffb-476a-846d-2a27f50281df)
 
@@ -48,7 +48,7 @@ curl ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2020/09/PXD020044/H_Luh_ND_3.r
 ![image](https://github.com/MurphyDavid/TX2P/assets/11276387/e14f98c7-4536-48e4-9ae0-346513582db3)
 
 
- ```
+```
 set current_folder="%cd%"
 echo %current_folder%
 ```
