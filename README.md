@@ -42,7 +42,7 @@ Before installing `TX2P`, you need to have `Docker` installed on your system. `D
 
 #### For Windows
 
-The docker's will work on windows but TODO: exact shell commands
+See detailed steps here: [WINDOWS](./windows.md)
 
 ## Getting Started:
 
