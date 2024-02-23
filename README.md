@@ -46,7 +46,7 @@ See detailed steps here: [WINDOWS](./windows.md)
 
 ## Getting Started:
 
-Download the two docker images.
+Download the two docker images:
 
 ```
 docker pull murphydaviducl/getorf:latest
@@ -66,6 +66,48 @@ If desired you should be able to use an updated version from those sources.
 Please cite https://doi.org/10.1021/acs.jproteome.7b00873
 
 
+### Input
+- `TX2P` requires a TSV/CSV file with the transcript IDs in a single column, one ID per line.
+
+Example format:
+
+```
+ENST00000000001
+ENST00000000002
+STRNG003
+STRNG004
+ENCL00000000005
+ENCL00000000006
+```
+- `TX2P` also requires an input GTF/GFF file with the transcript structures to test. This file needs a `transcript_id` column with IDs matching those in the above TSV/CSV file.
+
+Example format:
+
+```
+chr1	PacBio	transcript	1785288	1890877	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1785288	1787053	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1787322	1787437	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1789053	1789269	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1790395	1790596	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1793245	1793311	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1804419	1804581	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1806475	1806538	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1815756	1815862	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1817837	1817875	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1825397	1825499	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1839190	1839238	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	exon	1890820	1890877	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	CDS	1787331	1787437	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	CDS	1789053	1789269	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	CDS	1790395	1790596	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	CDS	1793245	1793311	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	CDS	1804419	1804581	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	CDS	1806475	1806538	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	CDS	1815756	1815862	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	CDS	1817837	1817875	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+chr1	PacBio	CDS	1825397	1825453	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
+```
+
 ## Testing:
 
 ### Getting ORFs
@@ -82,6 +124,8 @@ For the --transcript parameter you need to supply a file with a single column wi
 
 
 ### Searching mass spec data.
+
+
 
 #### Download a mass spec file for testing.
 
