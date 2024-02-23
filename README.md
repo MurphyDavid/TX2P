@@ -67,7 +67,8 @@ Please cite https://doi.org/10.1021/acs.jproteome.7b00873
 
 
 ### Input
-- `TX2P` requires a TSV/CSV file with the transcript IDs in a single column, one ID per line.
+#### Transcript file
+`TX2P` requires a TSV/CSV file with the transcript IDs in a single column, one ID per line.
 
 Example format:
 
@@ -79,7 +80,8 @@ STRNG004
 ENCL00000000005
 ENCL00000000006
 ```
-- `TX2P` also requires an input GTF/GFF file with the transcript structures to test. This file needs a `transcript_id` column with IDs matching those in the above TSV/CSV file.
+#### Transcript structures
+`TX2P` also requires an input GTF/GFF file with the transcript structures to test. This file needs a `transcript_id` column with IDs matching those in the above TSV/CSV file.
 
 Example format:
 
