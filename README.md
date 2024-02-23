@@ -81,7 +81,7 @@ ENCL00000000005
 ENCL00000000006
 ```
 #### Transcript structures
-`TX2P` also requires an input GTF/GFF file with the transcript structures to test. This file needs a `transcript_id` column with IDs matching those in the above TSV/CSV file.
+`TX2P` also requires an input GTF/GFF file with the transcript structures to test. This file needs `transcript_id` specified in the follwong format, with IDs matching those in the above TSV/CSV file.
 
 Example format:
 
