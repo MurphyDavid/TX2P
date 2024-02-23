@@ -78,6 +78,9 @@ current_folder=$(pwd)
 docker run -v $current_folder:/current_folder  --entrypoint Rscript murphydaviducl/getorf /getcds/getCDSandAAseq.R --gtf /current_folder/test.gtf --transcript /current_folder/test_transcripts.tsv --output /current_folder/output_ORFs.csv
 ```
 
+For the --transcript parameter you need to supply a file with a single column with no headings listing the transcript ID's of interest.
+
+
 ### Searching mass spec data.
 
 #### Download a mass spec file for testing.
