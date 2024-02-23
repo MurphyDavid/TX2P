@@ -73,6 +73,7 @@ Please cite https://doi.org/10.1021/acs.jproteome.7b00873
 Example format:
 
 ```
+PB.26.5
 ENST00000000001
 ENST00000000002
 STRNG003
