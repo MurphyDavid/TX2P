@@ -178,14 +178,7 @@ If you are trying to confirm that a transcript in an organism is producing a pro
 For humans the relevant fasta file can be downloaded from uniprot: https://www.uniprot.org/help/downloads 
 
 ```
-docker run -v $current_folder:/current_folder -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll \
-  -o /current_folder/testoutput \
-  -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml \
-     /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml \
-     /current_folder/mmconfig/Task5-SearchTaskconfig.toml \
-  -d [Fasta file for transcripts of interest] /current_folder/contaminants.fasta \
-     [Fasta file of known proteins for organism of interest] \
-  -s [complete list of mass spec files]
+docker run -v $current_folder:/current_folder -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d [Fasta file for transcripts of interest] /current_folder/contaminants.fasta [Fasta file of known proteins for organism of interest] -s [complete list of mass spec files]
 ```
 
 ## Citation
