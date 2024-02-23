@@ -12,7 +12,7 @@
 
 `TX2P` allows for automated integration of mass spectometry data in long-read RNA-sequencing workflows. It does so by predicting open reading frames for each transcripts within an input GTF/GFF file, translates it into peptide sequences and then searches for those predicted proteins in mass spec datasets using `MetaMorpheus`.
 
-*NOTE!* Currently `TX2P` is only set up to work with GRCh38. Chromsome IDs need to be matching those in UCSC hg38
+*NOTE!* Currently `TX2P` is only set up to work with GRCh38. Chromsome IDs need to be matching those in UCSC [hg38](https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/)
 
 ## Prerequisites
 
