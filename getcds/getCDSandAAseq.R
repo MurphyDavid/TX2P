@@ -1,37 +1,24 @@
+# getCDSandAAseq
+# Main function get_sequences() is used to translate and transcribe transcript sequences from a GTF/GFF
+# dependencies are instaeed through a docker image: docker pull murphydaviducl/getorf
+
 options(warn = -1)
 
 # Load libraries
-if (!requireNamespace("dplyr", quietly = TRUE)) {
-  install.packages("dplyr")
-}
-
-if (!requireNamespace("magrittr", quietly = TRUE)) {
-  install.packages("magrittr")
-}
-
-if (!requireNamespace("readr", quietly = TRUE)) {
-  install.packages("readr")
-}
-
-if (!requireNamespace("GenomicRanges", quietly = TRUE)) {
-  install.packages("GenomicRanges")
-}
-
-if (!requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
-  install.packages("BSgenome.Hsapiens.UCSC.hg38")
-}
-
-if (!requireNamespace("Biostrings", quietly = TRUE)) {
-  install.packages("Biostrings")
-}
-
-if (!requireNamespace("ORFik", quietly = TRUE)) {
-  install.packages("ORFik")
-}
-
-if (!requireNamespace("optparse", quietly = TRUE)) {
-  install.packages("optparse")
-}
+# packages <- c("dplyr", 
+#               "magrittr", 
+#               "readr", 
+#               "GenomicRanges", 
+#               "BSgenome.Hsapiens.UCSC.hg38", 
+#               "Biostrings", 
+#               "ORFik", 
+#               "optparse")
+# 
+# for (package in packages) {
+#   if (!requireNamespace(package, quietly = TRUE)) {
+#     install.packages(package)
+#   }
+# }
 
 suppressPackageStartupMessages({
   library(dplyr)
@@ -50,8 +37,10 @@ option_list <- list(
               help = "Input GTF name"),
   make_option("--transcript", type = "character", default = NULL,
               help = "Input transcript file as TSV in a single column"),
-  make_option("--output", type = "character", default = NULL,
-              help = "Output file name")
+  make_option("--output_csv", type = "character", default = NULL,
+              help = "Output CSV file name"),
+  make_option("--output_fasta", type = "character", default = NULL,
+              help = "Output FASTA file name")
 )
 
 # Create option parser
@@ -80,9 +69,6 @@ if (file.access(args$transcript, 4) == -1) {
   stop(paste("Input transcript file", args$transcript, "is not readable."))
 }
 
-# check if output is given
-# output as prefix
-
 # Read input data
 # Transcript IDs
 transcripts <- readr::read_lines(args$transcript) %>% as.character() # transcripts of interest
@@ -95,8 +81,6 @@ gtf <- gtf[gtf$transcript_id %in% transcripts, ]
 seqnames_not_in_ref <- seqnames(gtf) %>% 
                        unique() %>% 
                        setdiff(seqnames(BSgenome.Hsapiens.UCSC.hg38) %>% unique())
-
-
 
 # Function to get nucleotide (NT), open reading frame (ORF) and amino acid (AA) sequences
 get_sequences <- function(gtf){
@@ -154,8 +138,7 @@ get_sequences <- function(gtf){
                                  Biostrings::translate() %>% 
                                  as.character())
   }
-  
-  
+   
   return(NT_seq)
 }
 
@@ -163,8 +146,11 @@ get_sequences <- function(gtf){
 output_data <-
   get_sequences(gtf = gtf)
 
-
 # write output as CSV
-write_csv(output_data, args$output)
+write_csv(output_data, args$output_csv)
 
 # write output as fasta
+aastring <- AAStringSet(output_data$AA_seq)
+names(aastring) <- output_data$Transcript
+
+writeXStringSet(x = aastring, filepath = args$output_fasta, format = "fasta")
