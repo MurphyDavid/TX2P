@@ -91,22 +91,12 @@ chr1	PacBio	transcript	1785288	1890877	.	-	.	gene_id "ENSG00000078369.18"; trans
 chr1	PacBio	exon	1785288	1787053	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	exon	1787322	1787437	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	exon	1789053	1789269	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	exon	1790395	1790596	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	exon	1793245	1793311	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	exon	1804419	1804581	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	exon	1806475	1806538	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	exon	1815756	1815862	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	exon	1817837	1817875	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	exon	1825397	1825499	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	exon	1839190	1839238	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	exon	1890820	1890877	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	CDS	1787331	1787437	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	CDS	1789053	1789269	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	CDS	1790395	1790596	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	CDS	1793245	1793311	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	CDS	1804419	1804581	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	CDS	1806475	1806538	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
-chr1	PacBio	CDS	1815756	1815862	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	CDS	1817837	1817875	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 chr1	PacBio	CDS	1825397	1825453	.	-	.	gene_id "ENSG00000078369.18"; transcript_id "PB.26.5";
 ```
@@ -122,9 +112,11 @@ current_folder=$(pwd)
 
 docker run -v $current_folder:/current_folder  --entrypoint Rscript murphydaviducl/getorf /getcds/getCDSandAAseq.R --gtf /current_folder/test.gtf --transcript /current_folder/test_transcripts.tsv --output /current_folder/output_ORFs.csv
 ```
-
-For the --transcript parameter you need to supply a file with a single column with no headings listing the transcript ID's of interest.
-
+| Parameter | Description |
+| --- | --- |
+| `--gtf` | Path to the GTF/GFF file containing transcript structures to test. |
+| `--transcript` | Path to a TSV/CSV file with a single column (no headings) listing transcript IDs of interest. |
+| `--output` | Path to the output CSV file containing predicted Open Reading Frames (ORFs). |
 
 ### Searching mass spec data.
 
@@ -148,38 +140,52 @@ cd ./testoutput
 ```
 docker run -v $current_folder:/current_folder -it --entrypoint dotnet murphydaviducl/metamorpheusdocker /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /current_folder/H_Luh_ND_3.raw
 ```
-You can add almost any number of additional mass spec files, it's recommended to include a full dataset to allow good calibration though we suggest keeping it to less than 200GB or so. 
-You can give the docker access to additional folders by adding  more in the format "-v folder:/mountname" 
-The paths to additional raw files needs to be give in terms of the mounted path inside the docker container. 
+
+| Parameter | Description |
+| --- | --- |
+| `-o` | Output directory where the results will be stored. |
+| `-t` | Paths to MetaMorpheus configuration files (Task2, Task4, Task5). |
+| `-d` | Path to the FASTA file containing sequences of transcripts of interest. |
+| `-s` | Path to the mass spectrometry file(s) for analysis. |
+
+You can add almost any number of additional mass spec files, it ss recommended to include a full dataset to allow good calibration, though we suggest keeping it to less than 200GB. 
+Provide the Docker access to additional folders by adding more in the format `-v folder:/mountname`. The paths to additional raw files need to be given in terms of the mounted path inside the Docker container.
 
 Supported formats are 
 
->Thermo .raw 
->
->.mzML file in centroid mode.
->
->.mgf
+- Thermo .raw 
 
-Using the example files provided, once the tool has run you should now have a folder that looks like this.
+- mzML file in centroid mode.
+
+- .mgf
+
+Using the provided example files, once the tool has run, you should now have a folder that looks like this:
 
 ![image](https://github.com/MurphyDavid/TX2P/assets/11276387/c899d7b9-80d2-472a-b4bf-a6aae6b6b1ad)
 
-The Task3 folder should look like this
+The Task3 folder should look like this:
 
 ![image](https://github.com/MurphyDavid/TX2P/assets/11276387/c6a4eeab-2faf-42a2-b305-ca64983e2082)
 
-The AllQuantifiedProteinGroups should have one entry like this
+The AllQuantifiedProteinGroups should have one entry like this:
 
 ![image](https://github.com/MurphyDavid/TX2P/assets/11276387/0717f0ad-189b-4911-bd6d-dc43a82cd755)
 
 ## Usage
 
-If you are trying to confirm that a transcript in an organism is producing a protein, it's suggested to include the full known proteome for that organism just as you would a contaminants file.
-For humans the relevant fasta file can be downloaded from uniprot: https://www.uniprot.org/help/downloads 
+If you are trying to confirm that a transcript in an organism is producing a protein, it's suggested to include the full known proteome for that organism just as you would a contaminants file. For humans, the relevant fasta file can be downloaded from UniProt: https://www.uniprot.org/help/downloads 
 
 ```
 docker run -v $current_folder:/current_folder -it --entrypoint dotnet mymodifiedmetamorpheus:latest /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d [Fasta file for transcripts of interest] /current_folder/contaminants.fasta [Fasta file of known proteins for organism of interest] -s [complete list of mass spec files]
 ```
+
+| Parameter | Description |
+| --- | --- |
+| `-d` | Path to the FASTA file containing sequences of transcripts of interest. |
+| `/current_folder/contaminants.fasta` | Path to the FASTA file containing sequences of contaminants. |
+| `[Fasta file of known proteins for organism of interest]` | Path to the FASTA file of known proteins for the organism of interest. |
+| `-s` | Path to the complete list of mass spectrometry files for analysis. |
+
 
 ## Citation
 Please cite our manuscript: 
