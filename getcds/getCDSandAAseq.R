@@ -77,10 +77,12 @@ transcripts <- readr::read_lines(args$transcript) %>% as.character() # transcrip
 gtf <- rtracklayer::import(args$gtf) # GTF file
 gtf <- gtf[gtf$transcript_id %in% transcripts, ]
 
-# Need to make sure chromosomes present in the genome reference match the input GTF/GFF. Have found that alt contigs does have non-matching IDs.
+# Need to make sure chromosomes present in the genome reference match the input GTF/GFF. Have found that alt contigs may have non-matching IDs.
 seqnames_not_in_ref <- seqnames(gtf) %>% 
                        unique() %>% 
                        setdiff(seqnames(BSgenome.Hsapiens.UCSC.hg38) %>% unique())
+
+gtf <- gtf[!(seqnames(gtf) %in% seqnames_not_in_ref), ]
 
 # Function to get nucleotide (NT), open reading frame (ORF) and amino acid (AA) sequences
 get_sequences <- function(gtf){
