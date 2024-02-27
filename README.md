@@ -112,13 +112,8 @@ current_folder=$(pwd)
 
 docker run -v $current_folder:/current_folder  --entrypoint Rscript murphydaviducl/getorf /getcds/getCDSandAAseq.R --gtf /current_folder/test.gtf --transcript /current_folder/test_transcripts.tsv --output /current_folder/output_ORFs.csv
 ```
-| Parameter | Description |
-| --- | --- |
-| `--gtf` | Path to the GTF/GFF file containing transcript structures to test. |
-| `--transcript` | Path to a TSV/CSV file with a single column (no headings) listing transcript IDs of interest. |
-| `--output` | Path to the output CSV file containing predicted Open Reading Frames (ORFs). |
 
-### Searching mass spec data.
+
 
 
 
@@ -141,12 +136,6 @@ cd ./testoutput
 docker run -v $current_folder:/current_folder -it --entrypoint dotnet murphydaviducl/metamorpheusdocker /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /current_folder/H_Luh_ND_3.raw
 ```
 
-| Parameter | Description |
-| --- | --- |
-| `-o` | Output directory where the results will be stored. |
-| `-t` | Paths to MetaMorpheus configuration files (Task2, Task4, Task5). |
-| `-d` | Path to the FASTA file containing sequences of transcripts of interest. |
-| `-s` | Path to the mass spectrometry file(s) for analysis. |
 
 You can add almost any number of additional mass spec files, it ss recommended to include a full dataset to allow good calibration, though we suggest keeping it to less than 200GB. 
 Provide the Docker access to additional folders by adding more in the format `-v folder:/mountname`. The paths to additional raw files need to be given in terms of the mounted path inside the Docker container.
@@ -181,11 +170,17 @@ docker run -v $current_folder:/current_folder -it --entrypoint dotnet mymodified
 
 | Parameter | Description |
 | --- | --- |
+| `-v` | Docker option to specify a folder to mount |
+| `--transcript` | Path to a TSV/CSV file with a single column (no headings) listing transcript IDs of interest. |
+| `-o` | Output directory where the results will be stored. |
+| `-t` | Paths to MetaMorpheus configuration files (Task2, Task4, Task5). |
 | `-d` | Path to the FASTA file containing sequences of transcripts of interest. |
-| `/current_folder/contaminants.fasta` | Path to the FASTA file containing sequences of contaminants. |
-| `[Fasta file of known proteins for organism of interest]` | Path to the FASTA file of known proteins for the organism of interest. |
-| `-s` | Path to the complete list of mass spectrometry files for analysis. |
+| `-s` | Path to the mass spectrometry file(s) for analysis. |
+| `--gtf` | Path to the GTF/GFF file containing transcript structures to test. |
+| `--output` | Path to the output CSV file containing predicted Open Reading Frames (ORFs). |
 
+Contaminants files are added the same as transcripts of interest with "-d"
+All paths are "inside" the docker, so you need to mount 
 
 ## Citation
 Please cite our manuscript: 
