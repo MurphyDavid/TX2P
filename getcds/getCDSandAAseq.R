@@ -153,6 +153,15 @@ write_csv(output_data, args$output_csv)
 
 # write output as fasta
 aastring <- AAStringSet(output_data$AA_seq)
-names(aastring) <- output_data$Transcript
+
+# Create header lines
+headers <- paste(
+  ">sp|", output_data$Transcript, "|", output_data$Transcript,
+  "_HUMAN", output_data$Transcript,
+  "OS=Homo sapiens OX=9606 GN=", output_data$Transcript,
+  "PE=1 SV=1", sep=""
+)
+
+names(aastring) <- headers
 
 writeXStringSet(x = aastring, filepath = args$output_fasta, format = "fasta")
