@@ -49,6 +49,12 @@ parser <- OptionParser(option_list = option_list)
 # Parse command-line arguments
 args <- parse_args(parser)
 
+# Ensure the output filename ends with .fasta
+if (!grepl("\\.fasta$", args$output_fasta, ignore.case = TRUE)) {
+  args$output_fasta <- paste0(args$output_fasta, ".fasta")
+}
+
+
 # Read GTF file
 if (!file.exists(args$gtf)) {
   stop(paste("Input GTF file", args$gtf, "does not exist."))
@@ -154,13 +160,14 @@ write_csv(output_data, args$output_csv)
 # write output as fasta
 aastring <- AAStringSet(output_data$AA_seq)
 
-# Create header lines
-headers <- paste(
-  ">sp|", output_data$Transcript, "|", output_data$Transcript,
-  "_HUMAN", output_data$Transcript,
-  "OS=Homo sapiens OX=9606 GN=", output_data$Transcript,
-  "PE=1 SV=1", sep=""
+# Create header lines with correct spacing
+headers <- paste0(
+  ">sp|", output_data$Transcript, "|", output_data$Transcript, "_HUMAN ",
+  output_data$Transcript,
+  " OS=Homo sapiens OX=9606 GN=", output_data$Transcript,
+  " PE=1 SV=1"
 )
+
 
 names(aastring) <- headers
 
