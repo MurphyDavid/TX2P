@@ -138,14 +138,14 @@ cd ./testoutput
 #### Run on the example mass spec data. 
 
 ```
-docker run -v $current_folder:/current_folder -it --entrypoint dotnet murphydaviducl/metamorpheusdocker /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml current_folder/mmconfig/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /current_folder/H_Luh_ND_3.raw
+docker run -v $current_folder:/current_folder -it --entrypoint dotnet murphydaviducl/metamorpheusdocker /metamorpheus/CMD.dll -o /current_folder/testoutput -t /current_folder/mmconfig/Task2-CalibrateTaskconfig.toml /current_folder/mmconfig/Task4-GPTMDTaskconfig.toml /current_folder/mmconfig/Task5-SearchTaskconfig.toml -d /current_folder/test.fasta -s /current_folder/H_Luh_ND_3.raw
 ```
 
 | Parameter | Description |
 | --- | --- |
 | `-o` | Output directory where the results will be stored. |
 | `-t` | Paths to MetaMorpheus configuration files (Task2, Task4, Task5). |
-| `-d` | Path to the FASTA file containing sequences of transcripts of interest. |
+| `-d` | Path to the FASTA file containing sequences of transcripts of interest (ensure the file uses the .fasta extension).|
 | `-s` | Path to the mass spectrometry file(s) for analysis. |
 
 You can add almost any number of additional mass spec files, it ss recommended to include a full dataset to allow good calibration, though we suggest keeping it to less than 200GB. 
