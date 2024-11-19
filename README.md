@@ -110,13 +110,21 @@ TODO: allow only alphanumeric charaters as transcript ids.
 ```
 current_folder=$(pwd)
 
-docker run -v $current_folder:/current_folder  --entrypoint Rscript murphydaviducl/getorf /getcds/getCDSandAAseq.R --gtf /current_folder/test.gtf --transcript /current_folder/test_transcripts.tsv --output /current_folder/output_ORFs.csv
+docker run -v $current_folder:/current_folder \
+  --entrypoint Rscript murphydaviducl/getorf \
+  /getcds/getCDSandAAseq.R \
+  --gtf /current_folder/test.gtf \
+  --transcript /current_folder/test_transcripts.tsv \
+  --output_csv /current_folder/output_ORFs.csv \
+  --output_fasta /current_folder/output_ORFs.fasta
+
 ```
 | Parameter | Description |
 | --- | --- |
 | `--gtf` | Path to the GTF/GFF file containing transcript structures to test. |
 | `--transcript` | Path to a TSV/CSV file with a single column (no headings) listing transcript IDs of interest. |
-| `--output` | Path to the output CSV file containing predicted Open Reading Frames (ORFs). |
+| `--output_csv` | name of output CSV file containing predicted Open Reading Frames (ORFs). |
+| `--output_fasta` | name of output fasta file containing predicted amino acid sequences. |
 
 ### Searching mass spec data.
 
