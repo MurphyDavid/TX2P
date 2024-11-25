@@ -8,6 +8,7 @@
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/730147390.svg)](https://doi.org/10.5281/zenodo.14217928)
 <!-- badges: end -->
 
 `TX2P` allows for automated integration of mass spectometry data in long-read RNA-sequencing workflows. It does so by predicting open reading frames for each transcripts within an input GTF/GFF file, translates it into peptide sequences and then searches for those predicted proteins in mass spec datasets using `MetaMorpheus`.
